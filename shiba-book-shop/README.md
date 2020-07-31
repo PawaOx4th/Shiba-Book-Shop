@@ -1,4 +1,4 @@
-# shiba-book-show
+# shiba-book-shop
 
 ## Project setup
 ```
