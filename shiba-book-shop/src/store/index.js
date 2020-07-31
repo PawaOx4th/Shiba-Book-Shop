@@ -6,15 +6,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    bookshelf: {},
+    bookShelf: null,
     bookCount: 0
   },
   mutations: {
     SET_BOOKSHELF(state, payload) {
-      state.bookshelf = {
-        ...state.bookshelf,
-        ...payload
-      };
+      state.bookShelf = payload.data.books;
     }
   },
   actions: {
@@ -26,8 +23,8 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    getBookshelf(state) {
-      return state.bookshelf;
+    getBookShelf(state) {
+      return state.bookShelf;
     },
     getBookCount(state) {
       return state.bookCount;

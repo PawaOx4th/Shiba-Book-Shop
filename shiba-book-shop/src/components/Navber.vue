@@ -156,17 +156,12 @@ export default {
 .el-col {
   border-radius: 4px;
 }
-
-// .bg-purple {
-//   background: #ffffff;
-// }
-
 .grid-content {
   border-radius: 4px;
   min-height: 36px;
 }
 .row-bg {
-  background-color: #f6f6f7;
+  background-color: #ffffff;
   margin: 0 !important;
   padding: 10px;
 }
