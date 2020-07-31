@@ -14,11 +14,11 @@
           </el-header>
 
           <!-- Book Price -->
-          <h5>Price : ฿{{ price }}</h5>
+          <h5>
+            Price : <strong>฿{{ price }}</strong>
+          </h5>
 
-          <!-- Book id -->
-          <!-- <el-tag type="info">{{ bookid }}</el-tag> -->
-
+          <!-- Count -->
           <el-input-number
             size="small"
             controls-position="right"
@@ -78,7 +78,7 @@ export default {
       // ส่งข้อมูลเข้าไปเก็บที่ Store
       this.$store.dispatch("setBasket", this.bookOrder);
 
-      //
+      // Reset count in <el-input-number/>
       this.count = 1;
     },
     addBookCount() {
@@ -92,11 +92,10 @@ export default {
 <style lang="scss" scoped>
 .box-card {
   width: 100%;
+  min-height: 280px;
   padding: 0;
   border-radius: 1rem;
   text-align: left;
-  // font-size: 16px;
-  // height: auto;
 
   .el-container {
     img {
@@ -105,16 +104,18 @@ export default {
 
     .el-main {
       padding: 0 0 0 1rem;
-      position: relative;
+      max-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
 
       .el-header {
-        width: auto;
+        max-width: 320;
+        word-wrap: break-word;
         text-align: left;
         padding: 0 !important;
         font-weight: bold;
-        font-size: 0.5rem;
-
-        // margin-bottom: 2%;
+        font-size: 1rem;
       }
 
       h5 {
@@ -123,14 +124,15 @@ export default {
       }
 
       .el-footer {
-        padding: 0 0 0 1rem;
-        position: absolute;
-        bottom: 0;
-        left: 0;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0;
 
-        .el-button .add-to-cart {
+        .el-button {
           border-radius: 0.5rem;
-          width: 5vw;
+          width: auto;
+          height: 5vh;
           text-transform: uppercase;
           font-size: 1px;
         }
