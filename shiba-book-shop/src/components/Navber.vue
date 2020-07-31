@@ -121,6 +121,9 @@ export default {
 
 <style lang="scss" scoped>
 .nav {
+  min-width: 100vw;
+  padding: 0.5rem;
+  background-color: #ffffff;
   .svg-logo {
     width: 25%;
     height: auto;
