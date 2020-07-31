@@ -6,7 +6,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    bookshelf: {}
+    bookshelf: {},
+    bookCount: 0
   },
   mutations: {
     SET_BOOKSHELF(state, payload) {
@@ -27,6 +28,9 @@ export default new Vuex.Store({
   getters: {
     getBookshelf(state) {
       return state.bookshelf;
+    },
+    getBookCount(state) {
+      return state.bookCount;
     }
   }
 });

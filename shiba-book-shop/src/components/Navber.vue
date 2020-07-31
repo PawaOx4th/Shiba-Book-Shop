@@ -1,6 +1,6 @@
 <template>
   <div id="navber-component">
-    <el-row type="flex" justify="center" class="row-bg" align="middle" :gutter="16">
+    <el-row type="flex" justify="center" class="row-bg nav" align="middle" :gutter="16">
       <!-- Logo Section -->
       <el-col :xs="16" :md="4">
         <div class="svg-logo">
@@ -78,8 +78,22 @@
           </svg></div
       ></el-col>
       <!-- END Logo Section -->
-      <el-col :xs="8" :md="12"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :xs="8" :md="8"><div class="grid-content bg-purple"></div></el-col>
+
+      <!-- Search Section  -->
+      <el-col :xs="8" :md="16"><div class="grid-content bg-purple"></div></el-col>
+      <!-- END  Search Section-->
+
+      <!-- Basket Section -->
+      <el-col :xs="8" :md="4">
+        <div class="grid-content bg-purple basket">
+          <el-badge :value="bookCount" class="item icon-number" type="primary">
+            <div class="basket-circle">
+              <img src="@/assets/shopping-basket.png" width="100px" alt="" />
+            </div>
+          </el-badge>
+        </div>
+      </el-col>
+      <!-- END Basket Section -->
     </el-row>
   </div>
 </template>
@@ -92,6 +106,11 @@ export default {
       activeIndex: true
     };
   },
+  computed: {
+    bookCount() {
+      return this.$store.getters.getBookCount;
+    }
+  },
   methods: {
     handleSelect() {
       console.log("handleSelect");
@@ -101,11 +120,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.svg-logo {
-  width: 25%;
-  height: auto;
-  margin: 0 0 0 1rem;
+.nav {
+  .svg-logo {
+    width: 25%;
+    height: auto;
+    margin: 0 0 0 1rem;
+  }
+
+  .basket {
+    display: flex;
+    justify-content: center;
+
+    .basket-circle {
+      background: #b1bcc7;
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 50%;
+      padding: 10px;
+
+      img {
+        width: 100%;
+        max-width: 100px;
+        height: auto;
+      }
+    }
+  }
 }
+
 .el-row {
   margin-bottom: 20px;
   &:last-child {
@@ -116,16 +157,16 @@ export default {
   border-radius: 4px;
 }
 
-.bg-purple {
-  background: #d3dce6;
-}
+// .bg-purple {
+//   background: #ffffff;
+// }
 
 .grid-content {
   border-radius: 4px;
   min-height: 36px;
 }
 .row-bg {
-  background-color: #abc7ff;
+  background-color: #f6f6f7;
   margin: 0 !important;
   padding: 10px;
 }
