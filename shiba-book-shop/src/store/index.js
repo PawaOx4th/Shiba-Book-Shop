@@ -22,12 +22,15 @@ export default new Vuex.Store({
     },
 
     // แก้ไขจำนวนหนังสือในแต่ละรายการ ในตะกร้าสินค้า
+    // แก้ไข จำนวนราคารวม ของแต่ละรายการ
     EDIT_BASKET_BOOK_COUNT(state, { data, index }) {
       state.basket[index].count += data.count;
+      state.basket[index].amount = state.basket[index].count * state.basket[index].price;
+      // state.bookCount = state.basket.reduce((sum, counts) => sum + counts.count, 0);
     },
 
-    SET_ORDERCOUNT(state) {
-      state.bookCount = state.basket.reduce((sum, counts) => sum + counts.count, 0);
+    SET_ORDERCOUNT(state, payload) {
+      state.bookCount += payload;
     }
   },
   actions: {
@@ -39,29 +42,30 @@ export default new Vuex.Store({
       commit("SET_BOOKSHELF", data);
     },
 
+    setBasketCount({ commit, data }) {
+      // console.log(data);
+      commit("SET_ORDERCOUNT", data);
+    },
+
     // เก็บรายการ Order ของหนังสือที่ถูกเลือก
     setBasket({ commit, state }, data) {
+      // เรียก mutations นับจำนวนรายการสินค้า ใน ตะกร้าสิน้คา
+
       // เช็ค ว่าในตะกร้าสินค้า ว่างหรือไม่
       if (state.basket.length === 0) {
         // ถ้าไม่มี ทำการเรียก mutations ทำการเพิ่มหนังสือเข้าตะกร้าสินค้า
         commit("SET_BASKET", data);
-
-        // เรียก mutations นับจำนวนรายการสินค้า ใน ตะกร้าสินค้า
-        commit("SET_ORDERCOUNT", data);
       } else {
         // ถ้ามีหนังสือในตะกร้าสินค้า
         // (1) ทำการเรียก Function checkBookInBasKet
         this.dispatch("checkBookInBasKet", data);
-
-        // (2) เรียก mutations นับจำนวนรายการสินค้า ใน ตะกร้าสิน้คา
-        commit("SET_ORDERCOUNT", data);
       }
     },
 
     // ตรวจสอบ หนังสือที่กำลังจะเพิ่มล่าสุด ซ้ำกับหนังสือในตะกร้าสินค้าหรือไม่
     async checkBookInBasKet({ commit, state }, data) {
       // หาตำแหน่งข้อมูลของหนังสือในตะกร้าสินค้า ที่ซ้ำกับหนังสือที่เพิ่มล่าสุด
-      const index = state.basket.map(books => books.id).indexOf(data.id);
+      const index = await state.basket.map(books => books.id).indexOf(data.id);
 
       // -1 ไม่มีตำแหน่งที่ซ้ำ หรือคือไม่มีหนังสือซ้ำ กับ ในตะกร้าสินค้า
       //  เป็นจริง : ทำการเรียก mutations ทำการเพิ่มหนังสือเข้าตะกร้าสินค้า

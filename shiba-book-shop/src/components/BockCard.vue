@@ -78,6 +78,10 @@ export default {
       // ส่งข้อมูลเข้าไปเก็บที่ Store
       this.$store.dispatch("setBasket", this.bookOrder);
 
+      console.log("addToCart -> this.bookOrder.count", this.bookOrder.count);
+
+      this.$store.state.bookCount = this.$store.getters.getBookCount + this.bookOrder.count;
+
       // Reset count in <el-input-number/>
       this.count = 1;
     },

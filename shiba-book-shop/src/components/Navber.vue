@@ -78,7 +78,7 @@
               />
             </svg>
           </div>
-          <h1>Shiba Book Shop</h1>
+          <h1><router-link to="/home">Shiba Book Shop</router-link></h1>
         </div>
       </el-col>
       <!-- END Logo Section -->
@@ -135,9 +135,16 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    text-decoration: none !important;
 
     h1 {
       font-size: 2rem;
+      list-style: none;
+
+      a {
+        text-decoration: none;
+        color: #ffb531;
+      }
     }
     .svg-logo {
       width: 4vw;
