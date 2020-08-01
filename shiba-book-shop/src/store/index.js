@@ -1,7 +1,3 @@
-/* eslint-disable no-return-assign */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable prefer-const */
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
@@ -15,7 +11,7 @@ export default new Vuex.Store({
     basket: []
   },
   mutations: {
-    //
+    // โหลด หนังสือมาเก็บไว้
     SET_BOOKSHELF(state, payload) {
       state.bookShelf = payload.data.books;
     },
@@ -25,13 +21,12 @@ export default new Vuex.Store({
       state.basket.push(payload);
     },
 
-    SET_BASKET_CHANG_COUNT(state, { data, index }) {
-      console.log("SET_BASKET_CHANG_COUNT");
+    // แก้ไขจำนวนหนังสือในแต่ละรายการ ในตะกร้าสินค้า
+    EDIT_BASKET_BOOK_COUNT(state, { data, index }) {
       state.basket[index].count += data.count;
     },
 
     SET_ORDERCOUNT(state) {
-      // eslint-disable-next-line no-shadow
       state.bookCount = state.basket.reduce((sum, counts) => sum + counts.count, 0);
     }
   },
@@ -46,18 +41,39 @@ export default new Vuex.Store({
 
     // เก็บรายการ Order ของหนังสือที่ถูกเลือก
     setBasket({ commit, state }, data) {
-      if (state.basket === null) {
+      // เช็ค ว่าในตะกร้าสินค้า ว่างหรือไม่
+      if (state.basket.length === 0) {
+        // ถ้าไม่มี ทำการเรียก mutations ทำการเพิ่มหนังสือเข้าตะกร้าสินค้า
         commit("SET_BASKET", data);
+
+        // เรียก mutations นับจำนวนรายการสินค้า ใน ตะกร้าสินค้า
         commit("SET_ORDERCOUNT", data);
       } else {
+        // ถ้ามีหนังสือในตะกร้าสินค้า
+        // (1) ทำการเรียก Function checkBookInBasKet
         this.dispatch("checkBookInBasKet", data);
+
+        // (2) เรียก mutations นับจำนวนรายการสินค้า ใน ตะกร้าสิน้คา
         commit("SET_ORDERCOUNT", data);
       }
     },
 
+    // ตรวจสอบ หนังสือที่กำลังจะเพิ่มล่าสุด ซ้ำกับหนังสือในตะกร้าสินค้าหรือไม่
     async checkBookInBasKet({ commit, state }, data) {
-      let index = state.basket.map(books => books.id).indexOf(data.id);
-      index === -1 ? commit("SET_BASKET", data) : commit("SET_BASKET_CHANG_COUNT", { data, index });
+      // หาตำแหน่งข้อมูลของหนังสือในตะกร้าสินค้า ที่ซ้ำกับหนังสือที่เพิ่มล่าสุด
+      const index = state.basket.map(books => books.id).indexOf(data.id);
+
+      // -1 ไม่มีตำแหน่งที่ซ้ำ หรือคือไม่มีหนังสือซ้ำ กับ ในตะกร้าสินค้า
+      //  เป็นจริง : ทำการเรียก mutations ทำการเพิ่มหนังสือเข้าตะกร้าสินค้า
+      //  เป็นเท็จ : ทำการเรียก mutations แก้ไขจำนวนหนังสือในตะกร้าสินค้า
+      if (index === -1) {
+        commit("SET_BASKET", data);
+      } else {
+        commit("EDIT_BASKET_BOOK_COUNT", {
+          data,
+          index
+        });
+      }
     }
   },
   getters: {
