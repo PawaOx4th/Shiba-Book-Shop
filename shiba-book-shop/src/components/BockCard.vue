@@ -65,7 +65,7 @@ export default {
       type: String,
       default: ""
     },
-    bookid: {
+    id: {
       type: String,
       default: ""
     }
@@ -82,8 +82,14 @@ export default {
       this.count = 1;
     },
     addBookCount() {
+      // คำนวนเงิน
+      const amount = this.count * this.$props.price;
       // เพิ่มรายละเอียดหนังสือ, และจำนวนหนังสือ เข้าไปเก็บใน bookOrder
-      this.bookOrder = { ...this.$props, count: this.count };
+      this.bookOrder = {
+        ...this.$props,
+        count: this.count,
+        amount
+      };
     }
   }
 };

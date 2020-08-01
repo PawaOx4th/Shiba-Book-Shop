@@ -16,7 +16,7 @@ const routes = [
   {
     path: "/checkout",
     name: "CheckOut",
-    comments: () => import(/* webpackChunkName: "checkOut" */ "../views/CheckOutOrder.vue")
+    component: () => import(/* webpackChunkName: "checkOut" */ "../views/CheckOutOrder.vue")
   }
 ];
 

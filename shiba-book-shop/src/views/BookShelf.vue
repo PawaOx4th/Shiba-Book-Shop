@@ -7,7 +7,7 @@
             :cover="`${book.cover}`"
             :price="`${book.price}`"
             :title="`${book.title}`"
-            :bookid="`${book.id}`"
+            :id="`${book.id}`"
         /></el-col>
       </div>
     </el-row>
