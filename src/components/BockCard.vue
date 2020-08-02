@@ -149,7 +149,7 @@ export default {
           width: auto;
           height: 5vh;
           text-transform: uppercase;
-          font-size: 1px;
+          font-size: 1rem;
         }
       }
     }
