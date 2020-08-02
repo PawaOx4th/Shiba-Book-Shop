@@ -107,94 +107,94 @@ export default new Vuex.Store({
 
       switch (discountValueList.length) {
         case 1:
-          const harryBookName = harryBookList.filter(x => {
-            if (x.count >= 2) {
-              return (x.discount = discountValueList[0]), (x.discountList = 2);
+          const harryBookName = harryBookList.filter(book => {
+            if (book.count >= 2) {
+              return Object.assign(book, { discount: discountValueList[0], discountList: 2 });
             }
           });
           state.discountMapping = harryBookName;
           return harryBookName;
         case 2:
-          const harryBookName2 = harryBookList.filter(x => {
-            if (x.count >= 3) {
-              return (x.discount = discountValueList[1]), (x.discountList = 3);
+          const harryBookName2 = harryBookList.filter(book => {
+            if (book.count >= 3) {
+              return Object.assign(book, { discount: discountValueList[1], discountList: 3 });
             }
-            if (x.count === 2) {
-              return (x.discount = discountValueList[0]), (x.discountList = 2);
+            if (book.count === 2) {
+              return Object.assign(book, { discount: discountValueList[0], discountList: 2 });
             }
           });
           state.discountMapping = harryBookName2;
           return harryBookName2;
         case 3:
-          const harryBookName3 = harryBookList.filter(x => {
-            if (x.count >= 4) {
-              return (x.discount = discountValueList[2]), (x.discountList = 4);
+          const harryBookName3 = harryBookList.filter(book => {
+            if (book.count >= 4) {
+              return Object.assign(book, { discount: discountValueList[2], discountList: 4 });
             }
-            if (x.count === 3) {
-              return (x.discount = discountValueList[1]), (x.discountList = 3);
+            if (book.count === 3) {
+              return Object.assign(book, { discount: discountValueList[1], discountList: 3 });
             }
-            if (x.count === 2) {
-              return (x.discount = discountValueList[0]), (x.discountList = 2);
+            if (book.count === 2) {
+              return Object.assign(book, { discount: discountValueList[0], discountList: 2 });
             }
           });
           state.discountMapping = harryBookName3;
           return harryBookName3;
         case 4:
-          const harryBookName4 = harryBookList.filter(x => {
-            if (x.count >= 5) {
-              return (x.discount = discountValueList[3]), (x.discountList = 5);
+          const harryBookName4 = harryBookList.filter(book => {
+            if (book.count >= 5) {
+              return Object.assign(book, { discount: discountValueList[3], discountList: 5 });
             }
-            if (x.count === 4) {
-              return (x.discount = discountValueList[2]), (x.discountList = 4);
+            if (book.count === 4) {
+              return Object.assign(book, { discount: discountValueList[2], discountList: 4 });
             }
-            if (x.count === 3) {
-              return (x.discount = discountValueList[1]), (x.discountList = 3);
+            if (book.count === 3) {
+              return Object.assign(book, { discount: discountValueList[1], discountList: 3 });
             }
-            if (x.count === 2) {
-              return (x.discount = discountValueList[0]), (x.discountList = 2);
+            if (book.count === 2) {
+              return Object.assign(book, { discount: discountValueList[0], discountList: 2 });
             }
           });
           state.discountMapping = harryBookName4;
           return harryBookName4;
         case 5:
-          const harryBookName5 = harryBookList.filter(x => {
-            if (x.count >= 6) {
-              return (x.discount = discountValueList[4]), (x.discountList = 6);
+          const harryBookName5 = harryBookList.filter(book => {
+            if (book.count >= 6) {
+              return Object.assign(book, { discount: discountValueList[4], discountList: 6 });
             }
-            if (x.count === 5) {
-              return (x.discount = discountValueList[3]), (x.discountList = 5);
+            if (book.count === 5) {
+              return Object.assign(book, { discount: discountValueList[3], discountList: 5 });
             }
-            if (x.count === 4) {
-              return (x.discount = discountValueList[2]), (x.discountList = 4);
+            if (book.count === 4) {
+              return Object.assign(book, { discount: discountValueList[2], discountList: 4 });
             }
-            if (x.count === 3) {
-              return (x.discount = discountValueList[1]), (x.discountList = 3);
+            if (book.count === 3) {
+              return Object.assign(book, { discount: discountValueList[1], discountList: 3 });
             }
-            if (x.count === 2) {
-              return (x.discount = discountValueList[0]), (x.discountList = 2);
+            if (book.count === 2) {
+              return Object.assign(book, { discount: discountValueList[0], discountList: 2 });
             }
           });
           state.discountMapping = harryBookName5;
           return harryBookName5;
         case 6:
-          const harryBookName6 = harryBookList.filter(x => {
-            if (x.count >= 7) {
-              return (x.discount = discountValueList[5]), (x.discountList = 7);
+          const harryBookName6 = harryBookList.filter(book => {
+            if (book.count >= 7) {
+              return Object.assign(book, { discount: discountValueList[5], discountList: 7 });
             }
-            if (x.count === 6) {
-              return (x.discount = discountValueList[4]), (x.discountList = 6);
+            if (book.count === 6) {
+              return Object.assign(book, { discount: discountValueList[4], discountList: 6 });
             }
-            if (x.count === 5) {
-              return (x.discount = discountValueList[3]), (x.discountList = 5);
+            if (book.count === 5) {
+              return Object.assign(book, { discount: discountValueList[3], discountList: 5 });
             }
-            if (x.count === 4) {
-              return (x.discount = discountValueList[2]), (x.discountList = 4);
+            if (book.count === 4) {
+              return Object.assign(book, { discount: discountValueList[2], discountList: 4 });
             }
-            if (x.count === 3) {
-              return (x.discount = discountValueList[1]), (x.discountList = 3);
+            if (book.count === 3) {
+              return Object.assign(book, { discount: discountValueList[1], discountList: 3 });
             }
-            if (x.count === 2) {
-              return (x.discount = discountValueList[0]), (x.discountList = 2);
+            if (book.count === 2) {
+              return Object.assign(book, { discount: discountValueList[0], discountList: 2 });
             }
           });
           state.discountMapping = harryBookName6;
