@@ -69,6 +69,11 @@ export default new Vuex.Store({
           state.basket.splice(payload, 1);
         }
       }
+      state.discountResult = 0;
+      state.fixedDiscountValueList = [];
+      state.discountMapping = [];
+      state.bookArrayFilter = [];
+      state.harryBookName = [];
     },
 
     SET_HARRYPOTTER_BOOKID(state, basketArray) {
@@ -266,11 +271,13 @@ export default new Vuex.Store({
 
     // ลบจำนวนสินค้าออกจากแต่ละ order
     // หากจำนวนสินค้าในแต่ละ order เหลือ 0 order จะถูกลบออกจากตะกร้าสินค้า
-    removeOrderInBasket({ commit, state }, data) {
+    async removeOrderInBasket({ commit, state }, data) {
       // หาตำแหน่งข้อมูลของหนังสือในตะกร้าสินค้า ที่ซ้ำกับหนังสือที่เพิ่มล่าสุด
       const position = state.basket.map(books => books.id).indexOf(data.id);
 
-      commit("REMOVE_ORDER_BASKET", position);
+      await commit("REMOVE_ORDER_BASKET", position);
+
+      this.dispatch("calculeateBookDiscount");
     },
 
     // คำนวน ราคา ส่วนลด และยอดที่ต้องชำระ ทั้งหมด
@@ -305,6 +312,14 @@ export default new Vuex.Store({
     // แสดงข้อมูลหนังสือ ใน Order
     getBasket(state) {
       return state.basket;
+    },
+
+    getDiscountResult(state) {
+      return state.discountResult;
+    },
+
+    getAmountPrice(state) {
+      return state.amountPrice;
     }
   }
 });
