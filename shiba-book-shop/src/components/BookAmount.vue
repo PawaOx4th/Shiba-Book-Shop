@@ -1,43 +1,50 @@
 <template>
   <div id="book-amount">
-    <!-- จำนวนหนังสือที่อยู่ใน Order ทั้งหมด -->
-    <el-row type="flex" justify="center">
-      <el-col :span="8">
-        <div>
+    <el-row type="flex" justify="start">
+      <el-col :span="12"
+        ><div class="header">
           Book Count
-        </div>
-      </el-col>
-      <el-col :span="12"> {{ bookCounts }}</el-col>
+        </div></el-col
+      >
+      <el-col :span="12">
+        <h5>{{ bookCounts }}</h5></el-col
+      >
     </el-row>
 
     <!-- จำนวนราคาสินค้าทั้งหมด -->
     <el-row type="flex" justify="center">
-      <el-col :span="8">
-        <div>
-          Book Count
+      <el-col :span="12">
+        <div class="header">
+          Price
         </div>
       </el-col>
-      <el-col :span="12"> {{ amount }}</el-col>
+      <el-col :span="12">
+        <h5>{{ price }}</h5></el-col
+      >
     </el-row>
 
     <!-- ส่วนลด -->
     <el-row type="flex" justify="center">
-      <el-col :span="8">
-        <div>
+      <el-col :span="12">
+        <div class="header">
           Discount
         </div>
       </el-col>
-      <el-col :span="12"> {{ bookDiscount }}</el-col>
+      <el-col :span="12">
+        <h5>{{ bookDiscount }}</h5></el-col
+      >
     </el-row>
 
     <!-- ส่วนลด -->
-    <el-row type="flex" justify="center">
-      <el-col :span="8">
-        <div>
+    <el-row type="flex" justify="center" class="row-amount">
+      <el-col :span="12">
+        <div class="header amount">
           AMOUNT
         </div>
       </el-col>
-      <el-col :span="12"> {{ amount }}</el-col>
+      <el-col :span="12">
+        <h5 class="amount">{{ amount }}</h5></el-col
+      >
     </el-row>
   </div>
 </template>
@@ -54,6 +61,15 @@ export default {
     amount() {
       const amounts = this.handleAmount();
       return amounts;
+    },
+    price() {
+      const price = this.$store.getters.getBasket;
+      const sumPrice = price.reduce((sum, amount) => sum + amount.amount, 0);
+      const result = new Intl.NumberFormat("th-TH", {
+        style: "currency",
+        currency: "THB"
+      }).format(sumPrice);
+      return result;
     },
     bookCounts() {
       return this.$store.getters.getBookCount;
@@ -86,11 +102,36 @@ export default {
 
 <style lang="scss" scoped>
 .el-row {
-  background-color: #ffffff;
-
   .el-col {
-    font-size: 1.5rem;
+    background-color: white;
     padding: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .header {
+      font-size: 1.5rem;
+      color: #b1bcc7;
+    }
+
+    h5 {
+      font-size: 2rem;
+    }
   }
+}
+
+.row-amount {
+  padding: 1rem;
+  background: white;
+}
+
+.header.amount {
+  font-weight: 500;
+  font-size: 2rem;
+}
+
+.amount {
+  color: #6299cb;
+  font-size: 3rem !important;
 }
 </style>
