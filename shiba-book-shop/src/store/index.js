@@ -18,13 +18,15 @@ export default new Vuex.Store({
     bookShelf: null,
     bookCount: 0,
     basket: [],
+
     bookArrayFilter: [],
-    discountArray: [],
+
     harryBookName: [],
-    sumPrice: 0,
-    discountAll: 0,
+
+    discountResult: 0,
     amountPrice: 0,
-    DiscountMapping: []
+    discountMapping: [],
+    fixedDiscountValueList: []
   },
   mutations: {
     // โหลด หนังสือมาเก็บไว้
@@ -69,85 +71,55 @@ export default new Vuex.Store({
       }
     },
 
-    // SET HEARRY BOOK DISCOUNT
-    // SET_HARRYPOTTER_BOOKID(state) {
-    //   const bookRegEx = /^Harry/;
-    //   const bookArrayHarry = state.basket.filter(book => bookRegEx.test(book.title));
-    //   state.bookArrayFilter = bookArrayHarry;
-
-    //   this.commit("SET_DISCOUNT_VALUE_LIST", bookArrayHarry);
-    // },
-
-    //  SET DISCOUNT VALUE LIST
-    SET_DISCOUNT_VALUE_LIST(state, payload) {
-      console.log("SET_DISCOUNT_VALUE_LIST -> payload", payload);
-      // const discountArray = [];
-      const seriesList = state.bookArrayFilter.length;
-      console.log("SET_DISCOUNT_VALUE_LIST -> seriesList", seriesList);
-
-      switch (seriesList) {
-        case 2:
-          state.discountArray.push(0.1);
-          break;
-        case 3:
-          state.discountArray.push(0.1);
-          state.discountArray.push(0.11);
-          break;
-        case 4:
-          state.discountArray.push(0.1);
-          state.discountArray.push(0.11);
-          state.discountArray.push(0.12);
-          break;
-        case 5:
-          state.discountArray.push(0.1);
-          state.discountArray.push(0.11);
-          state.discountArray.push(0.12);
-          state.discountArray.push(0.13);
-          break;
-        case 6:
-          state.discountArray.push(0.11);
-          state.discountArray.push(0.1);
-          state.discountArray.push(0.13);
-          state.discountArray.push(0.14);
-          break;
-        case 7:
-          state.discountArray.push(0.1);
-          state.discountArray.push(0.11);
-          state.discountArray.push(0.13);
-          state.discountArray.push(0.14);
-          state.discountArray.push(0.15);
-          break;
-        default:
-          break;
-      }
-      this.commit("SET_DICDOUNT_MAPDISCOUNT");
+    SET_HARRYPOTTER_BOOKID(state, basketArray) {
+      const bookRegEx = /^Harry/;
+      state.bookArrayFilter = basketArray.filter(book => {
+        return bookRegEx.test(book.title);
+      });
+      return true;
     },
 
-    // SET_DICDOUNT_MAP_DISCOUNT
-    SET_DICDOUNT_MAPDISCOUNT(state) {
+    SET_DISCOUNT_VALUE_LIST(state, harryBooklist) {
+      let discountData = 0.1;
+      const toFixedDiscountValueList = [];
+      const discountValueList = [];
+      for (let index = 2; index <= harryBooklist.length; index++) {
+        discountValueList.push(discountData);
+        discountData += 0.01;
+      }
+      discountValueList.forEach(discountValue => {
+        discountValue = parseFloat(Number.parseFloat(discountValue).toFixed(2));
+        toFixedDiscountValueList.push(discountValue);
+      });
+
+      state.fixedDiscountValueList = toFixedDiscountValueList;
+      return true;
+    },
+
+    SET_DISCOUNT_MAPPING(state) {
       const harryBookList = state.bookArrayFilter;
-      const discountValueList = state.discountArray;
-      switch (harryBookList.length) {
+      const discountValueList = state.fixedDiscountValueList;
+
+      switch (discountValueList.length) {
         case 1:
-          const harryBookName = harryBookList
-            .filter(order => order.count >= 2)
-            .map(booklist => ({ ...booklist, discount: discountValueList[0], discountList: 2 }));
-          console.log("SET_DICDOUNT_MAPDISCOUNT CASE  1 ");
-          this.commit("SET_DISCOUNT_VALUE", harryBookName);
-          break;
+          const harryBookName = harryBookList.filter(x => {
+            if (x.count >= 2) {
+              return (x.discount = discountValueList[0]), (x.discountList = 2);
+            }
+          });
+          state.discountMapping = harryBookName;
+          return harryBookName;
         case 2:
           const harryBookName2 = harryBookList.filter(x => {
             if (x.count >= 3) {
-              // return (x.discount = discountValueList[1]), (x.discountList = 3);
-              return Object.assign(x, { discount: discountValueList[1], discountList: 3 });
+              return (x.discount = discountValueList[1]), (x.discountList = 3);
             }
             if (x.count === 2) {
-              // return (x.discount = discountValueList[0]), (x.discountList = 2);
-              return Object.assign(x, { discount: discountValueList[0], discountList: 2 });
+              return (x.discount = discountValueList[0]), (x.discountList = 2);
             }
           });
-          this.commit("SET_DISCOUNT_VALUE", harryBookName2);
-          break;
+          state.discountMapping = harryBookName2;
+          return harryBookName2;
         case 3:
           const harryBookName3 = harryBookList.filter(x => {
             if (x.count >= 4) {
@@ -160,8 +132,8 @@ export default new Vuex.Store({
               return (x.discount = discountValueList[0]), (x.discountList = 2);
             }
           });
-          this.commit("SET_DISCOUNT_VALUE", harryBookName3);
-          break;
+          state.discountMapping = harryBookName3;
+          return harryBookName3;
         case 4:
           const harryBookName4 = harryBookList.filter(x => {
             if (x.count >= 5) {
@@ -177,8 +149,8 @@ export default new Vuex.Store({
               return (x.discount = discountValueList[0]), (x.discountList = 2);
             }
           });
-          this.commit("SET_DISCOUNT_VALUE", harryBookName4);
-          break;
+          state.discountMapping = harryBookName4;
+          return harryBookName4;
         case 5:
           const harryBookName5 = harryBookList.filter(x => {
             if (x.count >= 6) {
@@ -197,8 +169,8 @@ export default new Vuex.Store({
               return (x.discount = discountValueList[0]), (x.discountList = 2);
             }
           });
-          this.commit("SET_DISCOUNT_VALUE", harryBookName5);
-          break;
+          state.discountMapping = harryBookName5;
+          return harryBookName5;
         case 6:
           const harryBookName6 = harryBookList.filter(x => {
             if (x.count >= 7) {
@@ -220,44 +192,30 @@ export default new Vuex.Store({
               return (x.discount = discountValueList[0]), (x.discountList = 2);
             }
           });
-          this.commit("SET_DISCOUNT_VALUE", harryBookName6);
-          break;
+          state.discountMapping = harryBookName6;
+          return harryBookName6;
+
         default:
           break;
       }
+      return true;
     },
-
-    // SETDISCOUNTVALUE
-    SET_DISCOUNT_VALUE(state, payload) {
-      console.log("SET_DISCOUNT_VALUE -> payload", payload);
-
-      state.discountAll = payload.reduce((discountValue, harryPotterBook) => {
-        const y = harryPotterBook.price * harryPotterBook.discountList;
-        return discountValue + y * harryPotterBook.discount;
-        // return (
-        //   discountValue +
-        //   harryPotterBook.price * harryPotterBook.discountList * harryPotterBook.discount
-        // );
+    SET_DISCOUNT_VALUE(state) {
+      const discountMapping = state.discountMapping;
+      const discountResult = discountMapping.reduce((discountValue, harryPotterBook) => {
+        return (
+          discountValue +
+          harryPotterBook.price * harryPotterBook.discountList * harryPotterBook.discount
+        );
       }, 0);
-      console.log("SET_DISCOUNT_VALUE -> discountResult", state.discountAll);
-
-      this.commit("SET_SUM_VALUE");
+      state.discountResult = discountResult;
+      return true;
     },
-
-    // SET_SUM_VALUE
-    SET_SUM_VALUE(state) {
-      state.sumPrice = state.basket.reduce((sumPrice, basket) => {
-        return sumPrice + basket.amount;
+    SET_AMOUNT(state) {
+      const priceResult = state.basket.reduce((sumPrice, allBookList) => {
+        return sumPrice + allBookList.amount;
       }, 0);
-      console.log("SET_SUM_VALUE -> state.sumPrice ", state.sumPrice);
-
-      this.commit("RESULT_PRICE");
-    },
-
-    RESULT_PRICE(state) {
-      state.amountPrice = state.sumPrice - state.discountAll;
-      console.log("RESULT_PRICE ->  state.amountPrice", state.amountPrice);
-      console.log("------------------------------------------------");
+      state.amountPrice = priceResult - state.discountResult;
     }
   },
   actions: {
@@ -306,6 +264,8 @@ export default new Vuex.Store({
       }
     },
 
+    // ลบจำนวนสินค้าออกจากแต่ละ order
+    // หากจำนวนสินค้าในแต่ละ order เหลือ 0 order จะถูกลบออกจากตะกร้าสินค้า
     removeOrderInBasket({ commit, state }, data) {
       // หาตำแหน่งข้อมูลของหนังสือในตะกร้าสินค้า ที่ซ้ำกับหนังสือที่เพิ่มล่าสุด
       const position = state.basket.map(books => books.id).indexOf(data.id);
@@ -313,165 +273,22 @@ export default new Vuex.Store({
       commit("REMOVE_ORDER_BASKET", position);
     },
 
-    async calculeateBookDiscount({ state }) {
-      console.log("calculeateBookDiscount -> state", state);
-      const getHarryBookList = await this.dispatch("setHarryPotterBookId");
+    // คำนวน ราคา ส่วนลด และยอดที่ต้องชำระ ทั้งหมด
+    async calculeateBookDiscount({ commit, state }) {
+      // ค้นหาหนังสือเฉพาะ "Harry ..."
+      await commit("SET_HARRYPOTTER_BOOKID", state.basket);
 
-      const getDiscountValueList = await this.dispatch("setDiscountValueList", getHarryBookList);
-      console.log("calculeateBookDiscount -> getDiscountValueList", getDiscountValueList);
+      // กำหนดจำนวนส่วนลดของแต่ละ series
+      await commit("SET_DISCOUNT_VALUE_LIST", state.bookArrayFilter);
 
-      const getDiscountMapping = await this.dispatch("setDiscountMapping");
-      console.log("calculeateBookDiscount -> getDiscountMapping", getDiscountMapping);
+      // กำหนดส่วนลด ในแต่ละเล่ม
+      await commit("SET_DISCOUNT_MAPPING");
 
-      // const getDiscountValue = await this.dispatch("setDiscountValue", getDiscountMapping);
-      // const getSumValue = await this.dispatch("setSumValue", state.basket);
+      // คำนวนส่วนลดทั้งหมด
+      await commit("SET_DISCOUNT_VALUE");
 
-      // console.log("Default Value : ", getSumValue);
-      // console.log("Discount Value : ", getDiscountValue);
-      // console.log("Result Value : ", getSumValue - getDiscountValue);
-    },
-
-    async setHarryPotterBookId({ state }) {
-      const bookRegEx = /^Harry/;
-      const bookArrayFilter = state.basket.filter(book => {
-        return bookRegEx.test(book.title);
-      });
-
-      return bookArrayFilter;
-    },
-
-    async setDiscountValueList({ state }, harryBookList) {
-      let discountData = 0.1;
-      const discountValueList = [];
-      const toFixedDiscountValueList = [];
-
-      // eslint-disable-next-line no-plusplus
-      for (let x = 2; x <= harryBookList.length; x++) {
-        await discountValueList.push(discountData);
-        discountData += 0.01;
-      }
-      discountValueList.forEach(discountValue => {
-        discountValue = parseFloat(Number.parseFloat(discountValue).toFixed(2));
-        toFixedDiscountValueList.push(discountValue);
-      });
-      state.DiscountMapping = discountValueList;
-      return discountValueList;
-    },
-
-    async setDiscountMapping({ state }) {
-      console.log("setDiscountMapping -> discountValueList");
-      const harryBookList = state.bookArrayFilter;
-      const discountValueList = state.discountArray;
-      switch (discountValueList.length) {
-        case 1:
-          const harryBookName = await harryBookList
-            .filter(order => order.count >= 2)
-            .map(booklist => ({ ...booklist, discount: discountValueList[0], discountList: 2 }));
-          console.log("SET_DICDOUNT_MAPDISCOUNT CASE  1 ");
-
-          return (state.harryBookName = harryBookName);
-
-        case 2:
-          const harryBookName2 = await harryBookList.filter(x => {
-            if (x.count >= 3) {
-              return (x.discount = discountValueList[1]), (x.discountList = 3);
-            }
-            if (x.count === 2) {
-              return (x.discount = discountValueList[0]), (x.discountList = 2);
-            }
-          });
-          return (state.harryBookName = harryBookName2);
-        case 3:
-          const harryBookName3 = await harryBookList.filter(x => {
-            if (x.count >= 4) {
-              return (x.discount = discountValueList[2]), (x.discountList = 4);
-            }
-            if (x.count === 3) {
-              return (x.discount = discountValueList[1]), (x.discountList = 3);
-            }
-            if (x.count === 2) {
-              return (x.discount = discountValueList[0]), (x.discountList = 2);
-            }
-          });
-          return (state.harryBookName = harryBookName3);
-        case 4:
-          const harryBookName4 = await harryBookList.filter(x => {
-            if (x.count >= 5) {
-              return (x.discount = discountValueList[3]), (x.discountList = 5);
-            }
-            if (x.count === 4) {
-              return (x.discount = discountValueList[2]), (x.discountList = 4);
-            }
-            if (x.count === 3) {
-              return (x.discount = discountValueList[1]), (x.discountList = 3);
-            }
-            if (x.count === 2) {
-              return (x.discount = discountValueList[0]), (x.discountList = 2);
-            }
-          });
-          return (state.harryBookName = harryBookName4);
-        case 5:
-          const harryBookName5 = await harryBookList.filter(x => {
-            if (x.count >= 6) {
-              return (x.discount = discountValueList[4]), (x.discountList = 6);
-            }
-            if (x.count === 5) {
-              return (x.discount = discountValueList[3]), (x.discountList = 5);
-            }
-            if (x.count === 4) {
-              return (x.discount = discountValueList[2]), (x.discountList = 4);
-            }
-            if (x.count === 3) {
-              return (x.discount = discountValueList[1]), (x.discountList = 3);
-            }
-            if (x.count === 2) {
-              return (x.discount = discountValueList[0]), (x.discountList = 2);
-            }
-          });
-          return (state.harryBookName = harryBookName5);
-        case 6:
-          const harryBookName6 = await harryBookList.filter(x => {
-            if (x.count >= 7) {
-              return (x.discount = discountValueList[5]), (x.discountList = 7);
-            }
-            if (x.count === 6) {
-              return (x.discount = discountValueList[4]), (x.discountList = 6);
-            }
-            if (x.count === 5) {
-              return (x.discount = discountValueList[3]), (x.discountList = 5);
-            }
-            if (x.count === 4) {
-              return (x.discount = discountValueList[2]), (x.discountList = 4);
-            }
-            if (x.count === 3) {
-              return (x.discount = discountValueList[1]), (x.discountList = 3);
-            }
-            if (x.count === 2) {
-              return (x.discount = discountValueList[0]), (x.discountList = 2);
-            }
-          });
-          return (state.harryBookName = harryBookName6);
-
-        default:
-          break;
-      }
-    },
-
-    async setDiscountValue(getDiscountMapping) {
-      const discountResult = getDiscountMapping.reduce((discountValue, harryPotterBook) => {
-        return (
-          discountValue +
-          harryPotterBook.price * harryPotterBook.discountList * harryPotterBook.discount
-        );
-      }, 0);
-      return discountResult;
-    },
-
-    async setSumValue(bookArray) {
-      const priceResult = bookArray.reduce((sumPrice, allBookList) => {
-        return sumPrice + allBookList.amount;
-      }, 0);
-      return priceResult;
+      // คำนวน ค่าใช้จ่ายทั้งหมด
+      await commit("SET_AMOUNT");
     }
   },
   getters: {
