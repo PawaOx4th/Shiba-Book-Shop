@@ -22,7 +22,8 @@ module.exports = {
       }
     ],
     "arrow-parens": [0],
-    "operator-linebreak": [0]
+    "operator-linebreak": [0],
+    "no-plusplus": [0, { allowForLoopAfterthoughts: true }]
   },
   overrides: [
     {

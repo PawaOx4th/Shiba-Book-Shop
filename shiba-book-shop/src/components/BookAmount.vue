@@ -7,7 +7,7 @@
           Book Count
         </div>
       </el-col>
-      <el-col :span="12"> {{ counts }}</el-col>
+      <el-col :span="12"> {{ bookCounts }}</el-col>
     </el-row>
 
     <!-- จำนวนราคาสินค้าทั้งหมด -->
@@ -25,6 +25,16 @@
       <el-col :span="8">
         <div>
           Discount
+        </div>
+      </el-col>
+      <el-col :span="12"> {{ bookDiscount }}</el-col>
+    </el-row>
+
+    <!-- ส่วนลด -->
+    <el-row type="flex" justify="center">
+      <el-col :span="8">
+        <div>
+          AMOUNT
         </div>
       </el-col>
       <el-col :span="12"> {{ amount }}</el-col>
@@ -45,19 +55,30 @@ export default {
       const amounts = this.handleAmount();
       return amounts;
     },
-    counts() {
+    bookCounts() {
       return this.$store.getters.getBookCount;
+    },
+    bookDiscount() {
+      const discount = this.$store.getters.getDiscountResult;
+      const discounted = new Intl.NumberFormat("th-TH", {
+        style: "currency",
+        currency: "THB"
+      }).format(discount);
+      return discounted;
     }
   },
   methods: {
     handleAmount() {
-      const amounts = this.$store.getters.getBookOrder;
-      const result = amounts.reduce((sum, amount) => sum + amount.amount, 0);
+      const result = this.$store.getters.getAmountPrice;
+      // const result = amounts.reduce((sum, amount) => sum + amount.amount, 0);
       const results = new Intl.NumberFormat("th-TH", {
         style: "currency",
         currency: "THB"
       }).format(result);
       return results;
+    },
+    handleResult() {
+      this.$store.dispatch("calculeateBookDiscount");
     }
   }
 };
