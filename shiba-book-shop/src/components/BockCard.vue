@@ -82,6 +82,13 @@ export default {
 
       // Reset count in <el-input-number/>
       this.count = 1;
+
+      this.$notify({
+        title: "Book ",
+        message: "Add Book to cart",
+        type: "success",
+        offset: 100
+      });
     },
     addBookCount() {
       // คำนวนเงิน
