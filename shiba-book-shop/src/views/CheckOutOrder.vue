@@ -1,14 +1,17 @@
 <template>
   <div id="check-out-order">
     <el-container>
+      <!-- Navber -->
       <el-header>
         <Navber />
       </el-header>
+
       <el-container>
+        <!-- Order Table -->
         <el-main>
           <OrderTable />
         </el-main>
-
+        <!-- Result Price -->
         <el-aside>
           <BookAmount />
         </el-aside>
