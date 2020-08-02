@@ -226,8 +226,6 @@ export default new Vuex.Store({
   actions: {
     // โหลดข้อมูลหนังสือทั้งหมด
     async setBooks({ commit }) {
-      // const bookUrl =
-      // "https://api.jsonbin.io/b/5e69b564d2622e7011565547?fbclid=IwAR1k4-q8kdVUvRncqd2TYzHQT3SFVHvHYhWZate_GLeEr0BwB84Go6kjq5w";
       const bookUrl = process.env.VUE_APP_API;
       const data = await axios.get(bookUrl);
       commit("SET_BOOKSHELF", data);
