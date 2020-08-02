@@ -23,7 +23,17 @@ module.exports = {
     ],
     "arrow-parens": [0],
     "operator-linebreak": [0],
-    "no-plusplus": [0, { allowForLoopAfterthoughts: true }]
+    "no-plusplus": [0, { allowForLoopAfterthoughts: true }],
+    "no-await-in-loop": [0],
+    "array-callback-return ": [0],
+    "no-return-assign": [0],
+    "no-sequences": [0],
+    "no-case-declarations": [0],
+    "consistent-return": [0],
+    "no-unused-expressions": [0],
+    "prefer-destructuring ": [0],
+    "no-param-reassign": [0],
+    "array-callback-return": [0]
   },
   overrides: [
     {

@@ -1,12 +1,3 @@
-/* eslint-disable no-await-in-loop */
-/* eslint-disable array-callback-return */
-/* eslint-disable no-return-assign */
-/* eslint-disable no-sequences */
-/* eslint-disable no-case-declarations */
-/* eslint-disable consistent-return */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable no-param-reassign */
 import axios from "axios";
 import Vue from "vue";
 import Vuex from "vuex";
@@ -93,8 +84,9 @@ export default new Vuex.Store({
         discountData += 0.01;
       }
       discountValueList.forEach(discountValue => {
-        discountValue = parseFloat(Number.parseFloat(discountValue).toFixed(2));
-        toFixedDiscountValueList.push(discountValue);
+        const value = discountValue;
+        const discount = parseFloat(Number.parseFloat(value).toFixed(2));
+        toFixedDiscountValueList.push(discount);
       });
 
       state.fixedDiscountValueList = toFixedDiscountValueList;
@@ -206,7 +198,7 @@ export default new Vuex.Store({
       return true;
     },
     SET_DISCOUNT_VALUE(state) {
-      const discountMapping = state.discountMapping;
+      const { discountMapping } = state;
       const discountResult = discountMapping.reduce((discountValue, harryPotterBook) => {
         return (
           discountValue +

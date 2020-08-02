@@ -120,7 +120,6 @@ export default {
   methods: {
     handleSelect() {
       this.$store.dispatch("calculeateBookDiscount");
-      console.log("5555");
     }
   }
 };
