@@ -41,7 +41,7 @@
     </el-table-column>
 
     <!-- Button Delete -->
-    <el-table-column label="Amount" width="150%" align="center">
+    <el-table-column label="Action" width="150%" align="center">
       <template slot-scope="scope">
         <el-button
           size="mini"
