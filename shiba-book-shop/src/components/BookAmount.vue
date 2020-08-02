@@ -28,6 +28,12 @@
         </div>
       </el-col>
       <el-col :span="12"> {{ amount }}</el-col>
+      <el-button
+        size="mini"
+        type="info"
+        icon="el-icon-add"
+        @click.prevent="handleResult"
+      ></el-button>
     </el-row>
   </div>
 </template>
@@ -51,13 +57,16 @@ export default {
   },
   methods: {
     handleAmount() {
-      const amounts = this.$store.getters.getBookOrder;
+      const amounts = this.$store.getters.getBasket;
       const result = amounts.reduce((sum, amount) => sum + amount.amount, 0);
       const results = new Intl.NumberFormat("th-TH", {
         style: "currency",
         currency: "THB"
       }).format(result);
       return results;
+    },
+    handleResult() {
+      this.$store.dispatch("calculeateBookDiscount");
     }
   }
 };

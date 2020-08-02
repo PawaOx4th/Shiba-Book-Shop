@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="BookOrder" style="width: 1180px">
+  <el-table :data="BookOrder" style="width: 1280px">
     <!-- Picture -->
     <el-table-column label="Picture" width="180">
       <template slot-scope="scope">
@@ -39,6 +39,18 @@
         <p class="book-count">{{ scope.row.amount }}</p>
       </template>
     </el-table-column>
+
+    <!-- Button Delete -->
+    <el-table-column label="Amount" width="100" align="center">
+      <template slot-scope="scope">
+        <el-button
+          size="mini"
+          @click="handleDelete(scope.$index, scope.row)"
+          type="danger"
+          icon="el-icon-remove"
+        ></el-button>
+      </template>
+    </el-table-column>
   </el-table>
 </template>
 
@@ -52,7 +64,12 @@ export default {
   },
   computed: {
     BookOrder() {
-      return this.$store.getters.getBookOrder;
+      return this.$store.getters.getBasket;
+    }
+  },
+  methods: {
+    handleDelete(index, data) {
+      this.$store.dispatch("removeOrderInBasket", data);
     }
   }
 };

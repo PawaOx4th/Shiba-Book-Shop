@@ -89,7 +89,7 @@
 
       <!-- Basket Section -->
       <el-col :xs="9" :lg="12">
-        <div class="basket">
+        <div class="basket" @click="handleSelect">
           <router-link to="/checkout">
             <el-badge :value="bookCount" class="item icon-number" type="primary">
               <div class="basket-circle">
@@ -119,7 +119,8 @@ export default {
   },
   methods: {
     handleSelect() {
-      console.log("handleSelect");
+      this.$store.dispatch("calculeateBookDiscount");
+      console.log("5555");
     }
   }
 };
