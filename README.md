@@ -1,5 +1,5 @@
 # SHIBA BOOK SHOP :tw-1f4da:
-###### :tw-1f4e8: pawaox4th@gmail.com
+###### ✉ pawaox4th@gmail.com
 ### Project Setup
 ```
 yarn install
@@ -14,4 +14,4 @@ yarn build
 ```
 ### CSS Framework
 
-:tw-1f31f: [element ui](https://element.eleme.io/#/en-US "element ui")
+- [element ui](https://element.eleme.io/#/en-US "element ui")
