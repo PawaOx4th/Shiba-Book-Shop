@@ -14,7 +14,9 @@
       <!-- END Main Section -->
 
       <!-- Footer Section -->
-      <el-footer>@Copy Right 2020/PAWAOX4TH</el-footer>
+      <el-footer>
+        <Footer />
+      </el-footer>
       <!-- END Footer Section -->
     </el-container>
   </div>
@@ -25,7 +27,8 @@ export default {
   name: "Home",
   components: {
     Navber: () => import("@/components/Navber"),
-    BookShelf: () => import("@/views/BookShelf")
+    BookShelf: () => import("@/views/BookShelf"),
+    Footer: () => import("@/components/Footer")
   }
 };
 </script>
