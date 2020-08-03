@@ -1,5 +1,5 @@
-# SHIBA BOOK SHOP :tw-1f4da:
-###### ✉ pawaox4th@gmail.com [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/PawaOx4th/Shiba-Book-Shop)
+# SHIBA BOOK SHOP 
+###### [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/PawaOx4th/Shiba-Book-Shop) ✉ pawaox4th@gmail.com 
 ### Project Setup
 ```
 yarn install
