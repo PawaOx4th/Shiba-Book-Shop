@@ -1,34 +1,21 @@
-# shiba-book-shop
-
-## Project setup
+# SHIBA BOOK SHOP 
+###### [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/PawaOx4th/Shiba-Book-Shop) ✉ pawaox4th@gmail.com 
+### Project Setup
 ```
 yarn install
 ```
-
 ### Compiles and hot-reloads for development
 ```
 yarn serve
 ```
-
 ### Compiles and minifies for production
 ```
 yarn build
 ```
+### CSS Framework
 
-### Run your unit tests
-```
-yarn test:unit
-```
+- [element ui](https://element.eleme.io/#/en-US "element ui")
 
-### Run your end-to-end tests
-```
-yarn test:e2e
-```
+### Frontend  Framework 
+* <a href="https://vuejs.org/" target="_blank">Vue Js</a>
 
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
